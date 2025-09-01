@@ -1,0 +1,35 @@
+type Comment {
+    _id: ID!
+    user: User
+    createdAt: String
+    rating: Int
+    title: String
+    description: String
+}
+
+input CommentCreateInput {
+    userId: ID
+    newUser: UserCreateInput
+    rating: Int!
+    title: String!
+    description: String
+}
+
+input CommentUpdateInput {
+    commentId: ID!
+    rating: Int
+    title: String
+    description: String
+    userId: ID
+}
+
+extend type Query {
+    commentGetAll(amount: Int): [Comment!]!
+    commentGetById(commentId: ID!): Comment
+}
+
+extend type Mutation {
+    commentCreate(commentInput: CommentCreateInput!): Comment!
+    commentUpdateById(commentInput: CommentUpdateInput!): Comment
+    commentDeleteById(commentId: ID!): Int
+}

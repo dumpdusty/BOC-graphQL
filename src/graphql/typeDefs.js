@@ -1,49 +1,15 @@
-import { gql } from "graphql-tag";
+import path from "path";
+import { fileURLToPath } from "url";
+import { loadFilesSync } from "@graphql-tools/load-files";
+import { mergeTypeDefs } from "@graphql-tools/merge";
 
-export default gql`
-  type User {
-    _id: ID!
-    firstName: String
-    lastName: String
-    comments: [Comment!]
-  }
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-  type Comment {
-    _id: ID!
-    user: User
-    createdAt: String
-    rating: Int
-    title: String
-    description: String
-  }
+const typesArray = loadFilesSync(path.join(__dirname, "./typeDefs"), {
+  extensions: ["graphql"],
+});
 
-  input UserFields {
-    userId: ID
-    firstName: String
-    lastName: String
-  }
+const typeDefs = mergeTypeDefs(typesArray);
 
-  input CommentFields {
-    commentId: ID
-    user: UserFields
-    rating: Int
-    title: String
-    description: String
-  }
-
-  type Query {
-    usersGetAll(amount: Int): [User!]!
-    userGetById(userId: ID!): User
-    commentGetAll(amount: Int): [Comment!]!
-    commentGetById(commentId: ID!): Comment
-  }
-
-  type Mutation {
-    userCreate(userInput: UserFields!): User!
-    userUpdateById(userInput: UserFields!): User
-    userDeleteById(userId: ID!): Int
-    commentCreate(commentInput: CommentFields!): Comment!
-    commentUpdateById(commentId: ID!, commentInput: CommentFields!): Int
-    commentDeleteById(commentId: ID!): Int
-  }
-`;
+export default typeDefs;

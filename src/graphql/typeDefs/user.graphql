@@ -1,0 +1,40 @@
+type User {
+    _id: ID!
+    firstName: String
+    lastName: String
+    comments: [Comment!]
+}
+
+type DeletedUser {
+    _id: ID!
+    firstName: String
+    lastName: String
+}
+
+type DeleteUserPayload {
+    success: Boolean!
+    message: String!
+    deletedUsers: [DeletedUser!]!
+}
+
+input UserCreateInput {
+    firstName: String
+    lastName: String
+}
+
+input UserUpdateInput {
+    userId: ID!
+    firstName: String
+    lastName: String
+}
+
+type Query {
+    userGetAll(amount: Int): [User!]!
+    userGetById(userId: ID!): User
+}
+
+type Mutation {
+    userCreate(userInput: UserCreateInput!): User!
+    userUpdateById(userInput: UserUpdateInput!): User
+    userDeleteById(userId: ID!): DeleteUserPayload!
+}
