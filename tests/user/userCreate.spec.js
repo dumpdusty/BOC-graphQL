@@ -1,12 +1,11 @@
 import gqlRequest from '../../helpers/gqlRequest.js';
 import { expect } from 'chai';
 import { userCreateQuery } from '../../helpers/user/query.js';
-import { userCreateData } from '../../helpers/user/data.js';
+import { userCreateData, userCreateDataInvalid } from '../../helpers/user/data.js';
 
-
+let responseData;
 
 describe('USER CREATE POSITIVE', () => {
-    let responseData;
     const userCreateRequestData = {
             query: userCreateQuery,
             variables: userCreateData
@@ -33,3 +32,22 @@ describe('USER CREATE POSITIVE', () => {
     })
 })
 
+
+describe('USER CREATE NEGATIVE', () => {
+    before(async () => {
+          const userCreateRequestData = {
+                query: userCreateQuery,
+                variables: userCreateDataInvalid
+        }
+        const response = await gqlRequest(userCreateRequestData).expect(400)
+        responseData = response.body.errors[0]
+    })
+
+    it('verify error message', async () => {
+        expect(responseData.message).contains('Variable "$userInput" got invalid value')
+    })
+
+    it('verify error extension code', async () => {
+        expect(responseData.extensions.code).eq('BAD_USER_INPUT')
+    })
+})
