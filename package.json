@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "mocha tests/**/*.spec.js",
+    "single": "mocha tests/user/userGetAll.spec.js",
     "start": "nodemon src/index.js"
   },
   "keywords": [],
