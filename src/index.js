@@ -4,8 +4,8 @@ import mongoose from "mongoose";
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers.js";
 
-const MONGODB = "mongodb://localhost:27017/the-book-of-comments";
-const PORT = 5000;
+const MONGODB = "mongodb://localhost:27017/BOCv2-Aug-25";
+const PORT = 5050;
 
 async function start() {
   try {
