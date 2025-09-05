@@ -17,7 +17,7 @@ export const userCreateDataInvalid = {
 
 
 export const userGetAllData = {
-    // "amount": chance.integer({min: 10, max: 100})  // optional variable
+    "amount": chance.integer({min: 10, max: 100})  // optional variable
 }
 
 

@@ -29,9 +29,9 @@ describe('USER CREATE POSITIVE', () => {
 
 describe('USER CREATE NEGATIVE', () => {
     before(async () => {
-          const userCreateRequestData = {
-                query: userCreateQuery,
-                variables: userCreateDataInvalid
+        const userCreateRequestData = {
+            query: userCreateQuery,
+            variables: userCreateDataInvalid
         }
         responseData = (await userCreate(userCreateRequestData, 400)).errors[0]   
     })
