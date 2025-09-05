@@ -1,4 +1,3 @@
-import gqlRequest from '../../helpers/gqlRequest.js';
 import { expect } from 'chai';
 import { userCreateQuery } from '../../helpers/user/query.js';
 import { userCreateData, userCreateDataInvalid } from '../../helpers/user/data.js';
