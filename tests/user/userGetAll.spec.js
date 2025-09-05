@@ -1,26 +1,21 @@
 import gqlRequest from '../../helpers/gqlRequest.js';
 import { expect } from 'chai';
-import { userCreateQuery, userGetAllQuery, userGetAllQueryInvalid } from '../../helpers/user/query.js';
-import { userCreateData, userGetAllData } from '../../helpers/user/data.js';
+import { userGetAllQuery, userGetAllQueryInvalid } from '../../helpers/user/query.js';
+import { userGetAllData } from '../../helpers/user/data.js';
+import { userCreate } from '../../helpers/user/functions.js';
 
 let responseData;
 
 describe('USER GET ALL POSITIVE', () => {
-    const userCreateRequestData = {
-        query: userCreateQuery,
-        variables: userCreateData
-    }
-
     const userGetAllRequestData = {
         query: userGetAllQuery,
         variables: userGetAllData
     }
 
     before(async () => {
-        await gqlRequest(userCreateRequestData).expect(200)
+        await userCreate()  // Ensure at least one user exists
         const response = await gqlRequest(userGetAllRequestData).expect(200)
         responseData = response.body.data.userGetAll
-        
     })
 
     it('verify response contains array of users', async () => {

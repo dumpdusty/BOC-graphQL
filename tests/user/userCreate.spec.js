@@ -1,19 +1,13 @@
-import gqlRequest from '../../helpers/gqlRequest.js';
 import { expect } from 'chai';
 import { userCreateQuery } from '../../helpers/user/query.js';
 import { userCreateData, userCreateDataInvalid } from '../../helpers/user/data.js';
+import { userCreate } from '../../helpers/user/functions.js';
 
 let responseData;
 
-describe.skip('USER CREATE POSITIVE', () => {
-    const userCreateRequestData = {
-            query: userCreateQuery,
-            variables: userCreateData
-    }
-    
+describe('USER CREATE POSITIVE', () => {
     before(async() => {
-        const response = await gqlRequest(userCreateRequestData).expect(200)
-        responseData = response.body.data.userCreate
+        responseData = (await userCreate()).data.userCreate
         console.log(responseData)
     })
 
@@ -23,27 +17,23 @@ describe.skip('USER CREATE POSITIVE', () => {
 
     it('verify created user first name', async () => {
         expect(responseData.firstName)
-            .eq(userCreateRequestData.variables.userInput.firstName)
+            .eq(userCreateData.userInput.firstName)
     })
 
     it('verify created user last name', async () => {          
         expect(responseData.lastName)
-            .eq(userCreateRequestData.variables.userInput.lastName)
+            .eq(userCreateData.userInput.lastName)
     })
 })
 
 
 describe('USER CREATE NEGATIVE', () => {
     before(async () => {
-          const userCreateRequestData = {
-                query: userCreateQuery,
-                variables: userCreateDataInvalid
+        const userCreateRequestData = {
+            query: userCreateQuery,
+            variables: userCreateDataInvalid
         }
-        const response = await gqlRequest(userCreateRequestData).expect(400)
-        responseData = response.body.errors[0]
-        console.log(responseData)
-        console.log(responseData.extensions)
-        
+        responseData = (await userCreate(userCreateRequestData, 400)).errors[0]   
     })
 
     it('verify error message', async () => {
