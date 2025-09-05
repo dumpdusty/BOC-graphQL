@@ -23,3 +23,12 @@ export const userGetAllQuery =
         lastName
     }
     }`
+
+export const userGetAllQueryInvalid = 
+    `query UserGetAll($amount: Int) {
+    userGetAll(amount: $amount) {
+        _id_invalid
+        firstName
+        lastName
+    }
+    }`
