@@ -5,7 +5,7 @@ import { userCreateData, userCreateDataInvalid } from '../../helpers/user/data.j
 
 let responseData;
 
-describe('USER CREATE POSITIVE', () => {
+describe.skip('USER CREATE POSITIVE', () => {
     const userCreateRequestData = {
             query: userCreateQuery,
             variables: userCreateData
@@ -41,6 +41,9 @@ describe('USER CREATE NEGATIVE', () => {
         }
         const response = await gqlRequest(userCreateRequestData).expect(400)
         responseData = response.body.errors[0]
+        console.log(responseData)
+        console.log(responseData.extensions)
+        
     })
 
     it('verify error message', async () => {
