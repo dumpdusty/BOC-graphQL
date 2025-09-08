@@ -2,20 +2,23 @@ import gqlRequest from '../../helpers/gqlRequest.js';
 import { expect } from 'chai';
 import { userGetAllQuery, userGetAllQueryInvalid } from '../../helpers/user/query.js';
 import { userGetAllData } from '../../helpers/user/data.js';
-import { userCreate } from '../../helpers/user/functions.js';
+import user from '../../helpers/user/functions.js'
 
 let responseData;
+let userId;
 
 describe('USER GET ALL POSITIVE', () => {
     const userGetAllRequestData = {
         query: userGetAllQuery,
         variables: userGetAllData
     }
- // TODO change to class method
+
     before(async () => {
-        await userCreate()  // Ensure at least one user exists
+        await user.createUser()  // Ensure at least one user exists
         const response = await gqlRequest(userGetAllRequestData).expect(200)
         responseData = response.body.data.userGetAll
+        userId = responseData[0]._id
+   
     })
 
     it('verify response contains array of users', async () => {
@@ -33,6 +36,10 @@ describe('USER GET ALL POSITIVE', () => {
             
         }
     })
+
+    after(async () => {
+        await user.deleteUserById(userId)
+    })
 })
 
 describe('USER GET ALL NEGATIVE', () => {
@@ -46,7 +53,7 @@ describe('USER GET ALL NEGATIVE', () => {
         responseData = response.body.errors[0]
     })
 
-     it('verify error message', async () => {
+        it('verify error message', async () => {
             expect(responseData.message).contains('Cannot query field "_id_invalid" on type "User".')
         })
     

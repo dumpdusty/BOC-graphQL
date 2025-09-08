@@ -9,7 +9,7 @@ describe('USER DELETE POSITIVE', () => {
     before(async () => {
         userId = (await user.createUser()).data.userCreate._id
 
-         responseData = (await user.deleteUserById(userDeleteByIdQuery, userId)).data.userDeleteById
+         responseData = (await user.deleteUserById(userId)).data.userDeleteById
     })
 
     it('verify message', async () => {

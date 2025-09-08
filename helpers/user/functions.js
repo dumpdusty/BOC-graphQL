@@ -12,7 +12,7 @@ class User {
         }).expect(statuscode)).body
     }
 
-    async deleteUserById(query = userDeleteByIdQuery, userId, statusCode = 200){
+    async deleteUserById(userId, query = userDeleteByIdQuery, statusCode = 200){
         return (await gqlRequest({
             query: query,
             variables: {
