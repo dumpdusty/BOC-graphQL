@@ -7,6 +7,10 @@ import { userCreateData } from '../../helpers/user/data.js';
         variables: userCreateData
 }
 
-export async function userCreate(requestData = userCreateRequestData, statuscode = 200) {
-    return (await gqlRequest(requestData).expect(statuscode)).body
+export async function userCreate(query = userCreateQuery, variables = userCreateData, statuscode = 200) {
+    return (await gqlRequest({
+        query: query,
+        variables: variables
+    })
+        .expect(statuscode)).body
 }
