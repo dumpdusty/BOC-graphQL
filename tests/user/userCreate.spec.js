@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import { userCreateQuery, userCreateQueryInvalid } from '../../helpers/user/query.js';
 import { userCreateData, userCreateDataInvalid } from '../../helpers/user/data.js';
-import { userCreate } from '../../helpers/user/functions.js';
+import user from '../../helpers/user/functions.js'
 
 let responseData;
 
-describe.skip('USER CREATE POSITIVE', () => {
+describe('USER CREATE POSITIVE', () => {
     before(async() => {
-        responseData = (await userCreate()).data.userCreate
+        responseData = (await user.createUser()).data.userCreate
         console.log(responseData)
     })
 
@@ -30,7 +30,7 @@ describe.skip('USER CREATE POSITIVE', () => {
 describe('USER CREATE NEGATIVE', () => {
     describe('user create - invalid query',() => {
          before(async () => {
-            responseData = (await userCreate(userCreateQueryInvalid, userCreateData, 400)).errors[0]   
+            responseData = (await user.createUser(userCreateQueryInvalid, userCreateData, 400)).errors[0]   
          })
         
          it('verify error message', async () => {
@@ -45,7 +45,7 @@ describe('USER CREATE NEGATIVE', () => {
 
     describe('user create - invalid input', () => {
         before(async () => {
-            responseData = (await userCreate(userCreateQuery, userCreateDataInvalid, 400)).errors[0]   
+            responseData = (await user.createUser(userCreateQuery, userCreateDataInvalid, 400)).errors[0]   
         })
 
         it('verify error message', async () => {
