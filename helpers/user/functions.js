@@ -1,6 +1,6 @@
 import gqlRequest from '../../helpers/gqlRequest.js';
-import { userCreateQuery, userDeleteByIdQuery } from '../../helpers/user/query.js';
-import { userCreateData } from '../../helpers/user/data.js';
+import { userCreateQuery, userDeleteByIdQuery, userGetAllQuery } from '../../helpers/user/query.js';
+import { userCreateData, userGetAllData } from '../../helpers/user/data.js';
 
 
 
@@ -18,6 +18,13 @@ class User {
             variables: {
                 userId: userId
             }
+        }).expect(statusCode)).body
+    }
+
+    async getAllUsers(query = userGetAllQuery, variables = userGetAllData, statusCode =200) {
+        return (await gqlRequest({
+            query,
+            variables
         }).expect(statusCode)).body
     }
 
