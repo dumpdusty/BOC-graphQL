@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { userDeleteByIdQuery } from '../../helpers/user/query.js';
+import { userDeleteByIdQueryInvalid } from '../../helpers/user/query.js';
 import user from '../../helpers/user/functions.js'
 
 let responseData;
@@ -18,5 +18,21 @@ describe('USER DELETE POSITIVE', () => {
 
     it('verify deleted user id', async () => {
         expect(responseData.deletedUsers[0]._id).eq(userId)
+    })
+})
+
+describe('USER DELETE NEGATIVE', () => {
+    describe('user delete - invalid query', () => {
+        before(async () => {
+            responseData = (await user.deleteUserById(userId, userDeleteByIdQueryInvalid, 400)).errors[0]
+        })
+
+        it('verify error message', async () => {
+            expect(responseData.message).eq('Cannot query field "deletedUser" on type "DeleteUserPayload". Did you mean "deletedUsers"?')
+        })
+
+        it('verify error extension code', async () => {
+            expect(responseData.extensions.code).eq('GRAPHQL_VALIDATION_FAILED')
+        })
     })
 })
