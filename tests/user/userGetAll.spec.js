@@ -8,15 +8,9 @@ let responseData;
 let userId;
 
 describe('USER GET ALL POSITIVE', () => {
-    const userGetAllRequestData = {
-        query: userGetAllQuery,
-        variables: userGetAllData
-    }
-
     before(async () => {
-        await user.createUser()  // Ensure at least one user exists
-        const response = await gqlRequest(userGetAllRequestData).expect(200)
-        responseData = response.body.data.userGetAll
+        await user.createUser()
+        responseData = (await user.getAllUsers()).data.userGetAll
         userId = responseData[0]._id
    
     })
@@ -32,8 +26,7 @@ describe('USER GET ALL POSITIVE', () => {
     it('verify each user has an id', async () => {
         for (let i = 0; i < responseData.length; i++) {
             expect(responseData[i]).to.have.property('_id')
-            expect(responseData[i]).not.to.be.empty
-            
+            expect(responseData[i]).not.to.be.empty  
         }
     })
 
@@ -43,15 +36,10 @@ describe('USER GET ALL POSITIVE', () => {
 })
 
 describe('USER GET ALL NEGATIVE', () => {
-    before(async () => {
-        const userGetAllRequestData = {
-            query: userGetAllQueryInvalid,
-            variables: userGetAllData
-        }
-
-        const response = await gqlRequest(userGetAllRequestData).expect(400)
-        responseData = response.body.errors[0]
-    })
+    describe('user get all - invalid query', () => {
+        before(async () => {
+            responseData = (await user.getAllUsers(userGetAllQueryInvalid, userGetAllData, 400)).errors[0]
+         })
 
         it('verify error message', async () => {
             expect(responseData.message).contains('Cannot query field "_id_invalid" on type "User".')
@@ -60,4 +48,5 @@ describe('USER GET ALL NEGATIVE', () => {
         it('verify error extension code', async () => {
            expect(responseData.extensions.code).eq('GRAPHQL_VALIDATION_FAILED')
         })
+    })
 })
