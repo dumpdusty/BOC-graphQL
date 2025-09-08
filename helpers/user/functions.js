@@ -2,11 +2,16 @@ import gqlRequest from '../../helpers/gqlRequest.js';
 import { userCreateQuery } from '../../helpers/user/query.js';
 import { userCreateData } from '../../helpers/user/data.js';
 
- const userCreateRequestData = {
-        query: userCreateQuery,
-        variables: userCreateData
+
+
+class User {
+    async createUser(query = userCreateQuery, variables = userCreateData, statuscode = 200) {
+        return (await gqlRequest({
+        query: query,
+        variables: variables
+    })
+        .expect(statuscode)).body
+    }
 }
 
-export async function userCreate(requestData = userCreateRequestData, statuscode = 200) {
-    return (await gqlRequest(requestData).expect(statuscode)).body
-}
+export default new User()

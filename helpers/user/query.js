@@ -14,6 +14,24 @@ export const userCreateQuery =
         }
     }`
 
+ export const userCreateQueryInvalid = 
+    `mutation UserCreate($userInput: UserCreateInput!) {
+        userCreate(userInput: $userInput) {
+            _id
+            firstName_1
+            lastName
+            comments {
+            _id
+            title
+            description
+            createdAt
+            rating
+            }
+        }
+    }`
+
+    
+
 
 export const userGetAllQuery = 
     `query UserGetAll($amount: Int) {
