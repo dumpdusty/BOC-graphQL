@@ -35,4 +35,12 @@ describe('USER DELETE NEGATIVE', () => {
             expect(responseData.extensions.code).eq('GRAPHQL_VALIDATION_FAILED')
         })
     })
+
+    describe.only('user delete - invalid input', () => {
+        it(' no id provided', async () => {
+            responseData = (await user.deleteUserById('')).errors[0]
+            expect(responseData.message).eq('User ID must be provided.')
+            expect(responseData.extensions.code).eq('BAD_USER_INPUT')
+        })
+    })
 })
