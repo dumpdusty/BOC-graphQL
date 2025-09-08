@@ -4,11 +4,12 @@ import { userCreateData, userCreateDataInvalid } from '../../helpers/user/data.j
 import user from '../../helpers/user/functions.js'
 
 let responseData;
+let userId;
 
 describe('USER CREATE POSITIVE', () => {
     before(async() => {
         responseData = (await user.createUser()).data.userCreate
-        console.log(responseData)
+        userId = responseData._id
     })
 
     it('verify created user has an id', async () => {
@@ -23,6 +24,10 @@ describe('USER CREATE POSITIVE', () => {
     it('verify created user last name', async () => {          
         expect(responseData.lastName)
             .eq(userCreateData.userInput.lastName)
+    })
+
+    after(async () => {
+        await user.deleteUserById(userId)
     })
 })
 

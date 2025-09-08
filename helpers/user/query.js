@@ -50,3 +50,17 @@ export const userGetAllQueryInvalid =
         lastName
     }
     }`
+
+export const userDeleteByIdQuery = 
+`mutation UserDeleteById($userId: ID!) {
+  userDeleteById(userId: $userId) {
+    deletedUsers {
+      _id
+      firstName
+      lastName
+    }
+    message
+    success
+  }
+}
+`
