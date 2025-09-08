@@ -1,6 +1,9 @@
 import Chance from 'chance'
 const chance = new Chance()
 
+
+// TODO try to turn those to function - why ?? probably to build custom data - to double check !!!!
+
 export const userCreateData = {
     "userInput": {
     "firstName": chance.first(),
@@ -19,5 +22,4 @@ export const userCreateDataInvalid = {
 export const userGetAllData = {
     "amount": chance.integer({min: 10, max: 100})  // optional variable
 }
-
 

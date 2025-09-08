@@ -11,7 +11,7 @@ describe('USER GET ALL POSITIVE', () => {
         query: userGetAllQuery,
         variables: userGetAllData
     }
-
+ // TODO change to class method
     before(async () => {
         await userCreate()  // Ensure at least one user exists
         const response = await gqlRequest(userGetAllRequestData).expect(200)

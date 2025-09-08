@@ -8,7 +8,6 @@ let responseData;
 describe('USER CREATE POSITIVE', () => {
     before(async() => {
         responseData = (await user.createUser()).data.userCreate
-        console.log(responseData)
     })
 
     it('verify created user has an id', async () => {
