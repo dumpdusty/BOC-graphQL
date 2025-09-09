@@ -5,10 +5,21 @@ import { userCreateData, userGetAllData } from '../../helpers/user/data.js';
 
 
 class User {
+
+    async buildUserCreateData(firstName, lastName) {
+        return {
+            "userInput": {
+                firstName,
+                lastName
+            }
+        }
+    }
+
+
     async createUser(query = userCreateQuery, variables = userCreateData, statuscode = 200) {
         return (await gqlRequest({
-        query: query,
-        variables: variables
+        query,
+        variables
         }).expect(statuscode)).body
     }
 
