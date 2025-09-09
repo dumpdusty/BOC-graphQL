@@ -64,3 +64,17 @@ export const userDeleteByIdQuery =
   }
 }
 `
+export const userDeleteByIdQueryInvalid = 
+`mutation UserDeleteById($userId: ID!) {
+  userDeleteById(userId: $userId) {
+    deletedUser {
+      _id
+      firstName
+      lastName
+    }
+    message
+    success
+  }
+}
+`
+
