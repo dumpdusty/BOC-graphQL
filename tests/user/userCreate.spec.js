@@ -49,7 +49,7 @@ describe('USER CREATE NEGATIVE', () => {
 
     // TODO add more tests based on resolver
 
-    describe('user create - invalid input', () => {
+    describe('user create - invalid input schema', () => {
         before(async () => {
             responseData = (await user.createUser(userCreateQuery, userCreateDataInvalid, 400)).errors[0]   
         })
@@ -61,5 +61,29 @@ describe('USER CREATE NEGATIVE', () => {
         it('verify error extension code', async () => {
             expect(responseData.extensions.code).eq('BAD_USER_INPUT')
         })
+    })
+
+    describe('user create - invalid input data', () => {
+        it('verify firstName data required', async () => {
+            const userCreateRandomData = await user.buildUserCreateData('', 'Sparrow')
+            responseData = (
+                await user.createUser(userCreateQuery, userCreateRandomData)
+            ).errors[0]
+            
+            expect(responseData.message).eq('Required firstname hasn\'t been provided')
+            expect(responseData.extensions.code).eq('FIRSTNAME_REQUIRED')
+        })
+
+        it('verify lastName data required', async () => {
+            const userCreateRandomData = await user.buildUserCreateData('Jack', '')
+            responseData = (
+                await user.createUser(userCreateQuery, userCreateRandomData)
+            ).errors[0]
+            
+            expect(responseData.message).eq('Required lastname hasn\'t been provided')
+            expect(responseData.extensions.code).eq('LASTNAME_REQUIRED')
+        })
+
+        
     })
 })
