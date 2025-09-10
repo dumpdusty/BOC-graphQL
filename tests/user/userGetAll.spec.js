@@ -1,6 +1,5 @@
-import gqlRequest from '../../helpers/gqlRequest.js';
 import { expect } from 'chai';
-import { userGetAllQuery, userGetAllQueryInvalid } from '../../helpers/user/query.js';
+import { userGetAllQueryInvalid } from '../../helpers/user/query.js';
 import { userGetAllData } from '../../helpers/user/data.js';
 import user from '../../helpers/user/functions.js'
 
