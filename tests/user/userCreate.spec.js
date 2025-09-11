@@ -47,7 +47,6 @@ describe('USER CREATE NEGATIVE', () => {
         })
     })
 
-    // TODO add more tests based on resolver
 
     describe('user create - invalid input schema', () => {
         before(async () => {

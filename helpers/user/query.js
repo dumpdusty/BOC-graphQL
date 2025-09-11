@@ -92,3 +92,16 @@ export const userGetByIdQuery =
   }
 }`
 
+export const userGetByIdQueryInvalid =
+  `query UserGetById($userId: ID!) {
+  userGetById(userId: $userId) {
+    _idd
+    firstName
+    lastName
+    comments {
+      _id
+      title
+    }
+  }
+}`
+
