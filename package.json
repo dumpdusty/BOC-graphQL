@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "mocha tests/**/*.spec.js",
-    "single": "mocha tests/user/userCreate.spec.js",
+    "single": "mocha tests/user/userGetById.spec.js",
     "start": "nodemon src/index.js"
   },
   "keywords": [],

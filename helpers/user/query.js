@@ -78,3 +78,30 @@ export const userDeleteByIdQueryInvalid =
 }
 `
 
+
+export const userGetByIdQuery =
+  `query UserGetById($userId: ID!) {
+  userGetById(userId: $userId) {
+    _id
+    firstName
+    lastName
+    comments {
+      _id
+      title
+    }
+  }
+}`
+
+export const userGetByIdQueryInvalid =
+  `query UserGetById($userId: ID!) {
+  userGetById(userId: $userId) {
+    _idd
+    firstName
+    lastName
+    comments {
+      _id
+      title
+    }
+  }
+}`
+
