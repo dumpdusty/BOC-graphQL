@@ -11,8 +11,7 @@ describe('USER GET BY ID POSITIVE', () => {
     before(async () => {
         createdUser = (await user.createUser()).data.userCreate
 
-        responseData = (await user.getUserById(createdUser._id)).data.userGetById
-        console.log(responseData);    
+        responseData = (await user.getUserById(createdUser._id)).data.userGetById   
     })
 
     it('verify user id', async () => {
@@ -48,7 +47,7 @@ describe('USER GET BY ID NEGATIVE', () => {
         })
     })
 
-    describe.only('user get by id - invalid input data', () => {
+    describe('user get by id - invalid input data', () => {
         it('verify if user id provided', async () => {
             responseData = (await user.getUserById('')).errors[0]
             expect(responseData.message).eq('User ID must be provided.')
