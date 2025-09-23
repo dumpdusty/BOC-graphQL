@@ -34,7 +34,7 @@ describe('USER GET BY ID POSITIVE', () => {
 describe('USER GET BY ID NEGATIVE', () => {
     describe('user get by id - invalid query', () => {
         before(async () => {
-            createdUser = (await user.createUser()).data.userCreate._id
+            createdUser = (await user.createUser()).data.userCreate
             responseData = (await user.getUserById(createdUser, userGetByIdQueryInvalid)).errors[0]
         })
         
@@ -45,6 +45,10 @@ describe('USER GET BY ID NEGATIVE', () => {
         it('verify error code', async () => {
             expect(responseData.extensions.code).eq('GRAPHQL_VALIDATION_FAILED')
         })
+
+        after(async () => {
+        await user.deleteUserById(createdUser._id)
+    })
     })
 
     describe('user get by id - invalid input data', () => {
