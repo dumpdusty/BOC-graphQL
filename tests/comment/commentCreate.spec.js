@@ -10,7 +10,7 @@ let commentCreateRandomData;
 let newUser;
 let commentId;
 
-describe('COMMENT CREATE NEGATIVE', () => {
+describe('COMMENT CREATE POSITIVE', () => {
     before(async () => {
         newUser = (await user.createUser()).data.userCreate
         commentCreateRandomData = await comment.buildCommentCreateData(newUser._id)
