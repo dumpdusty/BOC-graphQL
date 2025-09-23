@@ -1,5 +1,6 @@
 import gqlRequest from '../../helpers/gqlRequest.js';
-import { commentDeleteByIdQuery } from './query.js';
+import { commentCreateData } from './data.js';
+import { commentCreateQuery, commentDeleteByIdQuery } from './query.js';
 import Chance from 'chance'
 const chance = new Chance()
 
@@ -18,7 +19,7 @@ class Comment {
         
     }    
 
-    async createComment(query, variables, statusCode = 200) {
+    async createComment(variables = commentCreateData, query = commentCreateQuery, statusCode = 200) {
             return (await gqlRequest({
             query,
             variables
