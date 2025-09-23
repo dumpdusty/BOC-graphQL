@@ -1,4 +1,5 @@
 import gqlRequest from '../../helpers/gqlRequest.js';
+import { commentDeleteByIdQuery } from './query.js';
 import Chance from 'chance'
 const chance = new Chance()
 
@@ -17,12 +18,21 @@ class Comment {
         
     }    
 
-    async createComment(query, variables, statuscode = 200) {
+    async createComment(query, variables, statusCode = 200) {
             return (await gqlRequest({
             query,
             variables
-            }).expect(statuscode)).body
-        }
+            }).expect(statusCode)).body
+    }
+    
+    async deleteCommentById(commentId, query = commentDeleteByIdQuery, statusCode = 200) { 
+        return (await gqlRequest({
+                    query,
+                    variables: {
+                        commentId
+                    }
+                }).expect(statusCode)).body
+    }
 }
 
 

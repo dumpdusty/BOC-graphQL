@@ -31,3 +31,9 @@ export const commentCreateQueryInvalid =
   }
 }
 `
+
+
+export const commentDeleteByIdQuery = 
+`mutation CommentDeleteById($commentId: ID!) {
+  commentDeleteById(commentId: $commentId)
+}`
