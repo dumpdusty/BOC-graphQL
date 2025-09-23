@@ -6,15 +6,15 @@ const chance = new Chance()
 
 export const userCreateData = {
     "userInput": {
-    "firstName": chance.first(),
-    "lastName": chance.last()
+        "firstName": chance.first(),
+        "lastName": chance.last()
     }
 }
 
 export const userCreateDataInvalid = {
     "userInput": {
-    "firstName_invalid": chance.first(),
-    "lastName": chance.last()
+        "firstName_invalid": chance.first(),
+        "lastName": chance.last()
     }
 }   
 
